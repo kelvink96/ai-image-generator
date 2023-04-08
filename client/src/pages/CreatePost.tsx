@@ -109,7 +109,7 @@ const CreatePost = () => {
                 placeholder="name"
                 {...form.getInputProps('name')}
               />
-              <Group align="end">
+              <Stack align="flex-start">
                 <Textarea
                   label="Prompt"
                   placeholder="A comic book cover of a superhero wearing headphones"
@@ -122,10 +122,11 @@ const CreatePost = () => {
                   onClick={handleSupriseMe}
                   loading={generatingImg}
                   leftIcon={<IconGrain size={14}/>}
+                  variant="subtle"
                 >
-                  Surprise me
+                  Get suggestions
                 </Button>
-              </Group>
+              </Stack>
               <Box w={200} h={200} pos="relative">
                 <Image
                   mx="auto"
@@ -141,14 +142,21 @@ const CreatePost = () => {
                 mt="md"
                 onClick={generateImage}
                 loading={generatingImg}
-                leftIcon={<IconShape size={14}/>}
+                leftIcon={<IconShape size={18}/>}
+                size="md"
               >
-                Generate
+                Generate Image
               </Button>
               <Group>
                 <Text size="sm">Once you have created the image you want, you can share it with others in the
                   community.</Text>
-                <Button type="submit" loading={loading} leftIcon={<IconShare size={14}/>}>Share with community</Button>
+                <Button
+                  type="submit"
+                  variant="subtle"
+                  loading={loading || generatingImg}
+                  leftIcon={<IconShare size={14}/>}
+                >
+                  Share with community</Button>
               </Group>
             </Stack>
           </form>
