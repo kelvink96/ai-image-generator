@@ -16,6 +16,8 @@ import {
 } from "@mantine/core";
 import {useForm} from "@mantine/form";
 import {getRandomPrompt} from "../utils";
+import {Helmet} from "react-helmet";
+import {IconGrain, IconShape, IconShare} from '@tabler/icons-react';
 
 const CreatePost = () => {
   const navigate = useNavigate();
@@ -89,45 +91,70 @@ const CreatePost = () => {
   }
 
   return (
-    <Layout>
-      <Container>
-        <Title mb="md">Create</Title>
-        <Text mb="md">Create imaginative and visually stunning images throught DALL-E AI and share with the
-          community.</Text>
-        <form
-          onSubmit={form.onSubmit((values) => handleSubmit(values))}
-        >
-          <Stack spacing="sm">
-            <TextInput
-              label="Name"
-              placeholder="name"
-              {...form.getInputProps('name')}
-            />
-            <Group align="end">
-              <Textarea
-                label="Prompt"
-                placeholder="A comic book cover of a superhero wearing headphones"
-                mt="md"
-                rows={4}
-                sx={{width: 600}}
-                {...form.getInputProps('prompt')}
+    <>
+      <Helmet>
+        <title>Create Image</title>
+      </Helmet>
+      <Layout>
+        <Container>
+          <Title mb="md">Create</Title>
+          <Text mb="md">Create imaginative and visually stunning images throught DALL-E AI and share with the
+            community.</Text>
+          <form
+            onSubmit={form.onSubmit((values) => handleSubmit(values))}
+          >
+            <Stack spacing="md" align="flex-start">
+              <TextInput
+                label="Name"
+                placeholder="name"
+                {...form.getInputProps('name')}
               />
-              <Button onClick={handleSupriseMe} loading={generatingImg}>Surprise me</Button>
-            </Group>
-            <Box w={200} h={200} pos="relative">
-              <Image mx="auto" radius="md" src={form.values.photo ?? null} alt="Random image" withPlaceholder/>
-              <LoadingOverlay visible={generatingImg} overlayBlur={2}/>
-            </Box>
-            <Button type="button" mt="md" onClick={generateImage} loading={generatingImg}>
-              Submit
-            </Button>
-            <Text size="sm">Once you have created the image you want, you can share it with others in the
-              community.</Text>
-            <Button type="submit" loading={loading}>Share with community</Button>
-          </Stack>
-        </form>
-      </Container>
-    </Layout>
+              <Group align="end">
+                <Textarea
+                  label="Prompt"
+                  placeholder="A comic book cover of a superhero wearing headphones"
+                  mt="md"
+                  rows={4}
+                  sx={{width: 600}}
+                  {...form.getInputProps('prompt')}
+                />
+                <Button
+                  onClick={handleSupriseMe}
+                  loading={generatingImg}
+                  leftIcon={<IconGrain size={14}/>}
+                >
+                  Surprise me
+                </Button>
+              </Group>
+              <Box w={200} h={200} pos="relative">
+                <Image
+                  mx="auto"
+                  radius="md"
+                  src={form.values.photo ?? null}
+                  alt="Random image"
+                  withPlaceholder
+                  width={200} height={200}/>
+                <LoadingOverlay visible={generatingImg} overlayBlur={2}/>
+              </Box>
+              <Button
+                type="button"
+                mt="md"
+                onClick={generateImage}
+                loading={generatingImg}
+                leftIcon={<IconShape size={14}/>}
+              >
+                Generate
+              </Button>
+              <Group>
+                <Text size="sm">Once you have created the image you want, you can share it with others in the
+                  community.</Text>
+                <Button type="submit" loading={loading} leftIcon={<IconShare size={14}/>}>Share with community</Button>
+              </Group>
+            </Stack>
+          </form>
+        </Container>
+      </Layout>
+    </>
   );
 };
 

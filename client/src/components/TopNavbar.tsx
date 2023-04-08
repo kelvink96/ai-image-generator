@@ -10,13 +10,20 @@ import {
   Header,
   Image,
   rem,
-  ScrollArea,
+  ScrollArea, Title,
 } from '@mantine/core';
 import {useDisclosure} from '@mantine/hooks';
-import {IconBook, IconChartPie3, IconCode, IconCoin, IconFingerprint, IconNotification,} from '@tabler/icons-react';
-
-import LogoImg from "../assets/logo.svg";
+import {
+  IconBook,
+  IconChartPie3,
+  IconCode,
+  IconCoin,
+  IconFingerprint,
+  IconNotification,
+  IconPhoto,
+} from '@tabler/icons-react';
 import {Link} from "react-router-dom";
+import LogoImg from "../assets/logo.svg";
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -117,14 +124,14 @@ const TopNavbar = () => {
 
   return (
     <Box>
-      <Header height={60} px="md">
+      <Header height={60} px="md" mb={32}>
         <Group position="apart" sx={{height: '100%'}}>
-          <Box component={Link} to="/">
-            <Image src={LogoImg} alt="" height={36} width={96} fit={"contain"}/>
+          <Box component={Link} to="/" sx={{textDecoration: 'none'}}>
+            <Title order={5}>AI Image Generator</Title>
           </Box>
 
           <Group className={classes.hiddenMobile}>
-            <Button component={Link} to="/create-post">Create</Button>
+            <Button component={Link} to="/create-post" leftIcon={<IconPhoto size={18}/>}>Create Image</Button>
           </Group>
 
           <Burger opened={drawerOpened} onClick={toggleDrawer} className={classes.hiddenDesktop}/>

@@ -9,12 +9,11 @@ const useStyles = createStyles((theme) => ({
     position: 'relative',
     minHeight: rem(280),
     backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+    transition: 'transform 500ms ease',
 
     [`&:hover .${getStylesRef('overlay')}`]: {
       display: 'none',
     },
-
-    [`&:hover .${getStylesRef('image')}`]: {},
 
     [`&:hover .${getStylesRef('content')}`]: {
       display: 'flex',
@@ -25,18 +24,7 @@ const useStyles = createStyles((theme) => ({
     ...theme.fn.cover(),
     ref: getStylesRef('image'),
     backgroundSize: 'cover',
-    transition: 'transform 500ms ease',
-  },
-
-  overlay: {
-    display: 'none',
-    position: 'absolute',
-    top: '20%',
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundImage: 'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .85) 90%)',
-    ref: getStylesRef('overlay')
+    borderRadius: theme.radius.sm,
   },
 
   content: {
@@ -64,7 +52,7 @@ interface IProps {
 }
 
 const Card = ({data}: IProps): JSX.Element => {
-  const {classes, theme} = useStyles();
+  const {classes} = useStyles();
   const {_id, prompt, photo} = data;
 
   return (
@@ -74,13 +62,12 @@ const Card = ({data}: IProps): JSX.Element => {
       radius="md"
     >
       <div className={classes.image} style={{backgroundImage: `url(${photo})`}}/>
-      <div className={classes.overlay}/>
 
       <div className={classes.content}>
         <Text size="md" className={classes.title}>
           {prompt}
         </Text>
-        <ActionIcon variant="filled" color="indigo" title="download image" onClick={() => downloadImage(_id, photo)}>
+        <ActionIcon variant="filled" color="blue" title="download image" onClick={() => downloadImage(_id, photo)}>
           <IconDownload size="1rem" stroke={1.5}/>
         </ActionIcon>
       </div>
